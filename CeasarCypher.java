@@ -9,8 +9,9 @@ public class CeasarCipher {
         do {
             System.out.println("1. Encrypt a Text");
             System.out.println("2. Decrypt a Cipher");
-            System.out.println("3. Exit");
-            System.out.print("Enter Your Option (1-3): ");
+            System.out.println("3. Decrypt a Text ( Using XOR ) ");
+            System.out.println("4. Exit");
+            System.out.print("Enter Your Option (1-4): ");
             choice = Integer.parseInt(scan.nextLine());
 
             if (choice == 1) {
@@ -30,8 +31,18 @@ public class CeasarCipher {
                 }
             }
 
+            else if (choice == 3) {
+                System.out.print("Enter the plaintext to encrypt: ");
+                String plaintext = scan.nextLine();
+                System.out.print("Enter a key:  ");
+                String shift = scan.nextLine();
+                String ciphertext = xorEncrypt(plaintext, shift);
+                System.out.println("Encrypted Text using OR: " + ciphertext);
+            }
+            
+
             System.out.println("\n");
-        } while (choice != 3);
+        } while (choice != 4);
     }
 
 
@@ -58,5 +69,20 @@ public class CeasarCipher {
     public static String decrypt(String ciphertext, int shift) {
         return encrypt(ciphertext, 26 - shift);
     }
+
+
+    public static String xorEncrypt(String input, String key) {
+        StringBuilder output = new StringBuilder();
+
+        for (int i = 0; i < input.length(); i++) {
+            int inputChar = (int) input.charAt(i);
+            int keyChar = (int) key.charAt(i % key.length());
+            int encryptedChar = inputChar ^ keyChar;
+            output.append((char) encryptedChar);
+        }
+
+        return output.toString();
+    }
+
 
 }
